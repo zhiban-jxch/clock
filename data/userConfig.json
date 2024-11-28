@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "userName": "姜xx",
+      "userName": "姜希成",
       "userId": "90889421",
       "compId": "9442641",
       "equipment": "iPhone 13",
@@ -13,7 +13,7 @@
       "ruleId": "67"
     },
     {
-      "userName": "李xx",
+      "userName": "李玉文",
       "userId": "56592448",
       "compId": "9442641",
       "equipment": "Xiaomi 2211133C",
@@ -22,6 +22,18 @@
       "remark": "https://staffcloud-1312610724.cos.ap-beijing.myqcloud.com/img/comp/944/565924/tmp_2984f1482e6387c33ee4ac803daa2149a0b0a202ca4b0477.jpg",
       "remarks": [],
       "createId": "56592448",
+      "ruleId": "67"
+    },
+    {
+      "userName": "李志",
+      "userId": "81576176",
+      "compId": "9442641",
+      "equipment": "iPhone 15",
+      "location": "Uface-BLT1",
+      "punchCardMethod": "考勤机",
+      "remark": "https://staffcloud-1312610724.cos.ap-beijing.myqcloud.com/img/comp/944/815761/tmp_431b967088f239621e0870cba24db9d5.jpg",
+      "remarks": [],
+      "createId": "81576176",
       "ruleId": "67"
     }
   ]
