@@ -6,6 +6,8 @@ import io.github.jxch.zhiban.clock.entity.User;
 import io.github.jxch.zhiban.clock.entity.UserConfig;
 import io.github.jxch.zhiban.clock.service.UserConfigService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -34,6 +36,7 @@ public class UserConfigServiceImpl implements UserConfigService {
     }
 
     @Override
+    @SneakyThrows
     public void insertUser(User user) {
         if (allUsers().stream().anyMatch(u -> Objects.equals(u.getUserName(), user.getUserName()))) {
             throw new IllegalArgumentException("用户名已存在：" + user.getUserName());
@@ -41,7 +44,8 @@ public class UserConfigServiceImpl implements UserConfigService {
 
         UserConfig userConfig = userConfig();
         userConfig.getUsers().add(user);
-        JSONUtil.readJSON(clockConfig.userConfigFile(), StandardCharsets.UTF_8);
+        String json = JSONUtil.toJsonPrettyStr(userConfig);
+        FileUtils.write(clockConfig.userConfigFile(), StandardCharsets.UTF_8.name(), json);
     }
 
 }

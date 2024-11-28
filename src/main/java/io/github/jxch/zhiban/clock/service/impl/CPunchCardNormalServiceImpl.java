@@ -28,11 +28,18 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
         CPunchCardNormal cPunchCardNormal = cPunchCardNormalConvert.User2ClockInCPunchCardNormal(user);
         CPunchCardNormal saved = cPunchCardNormalRepository.save(cPunchCardNormal);
 
+        // todo 记录 undo log 日志
 
     }
 
     @Override
     public void clockOut(String userName) {
+        User user = userConfigService.getUserByName(userName);
+        CPunchCardNormal cPunchCardNormal = cPunchCardNormalConvert.User2ClockOutCPunchCardNormal(user);
+        CPunchCardNormal saved = cPunchCardNormalRepository.save(cPunchCardNormal);
+        // todo 改状态表
+        // todo 记录 undo log 日志
+
     }
 
     @Override
