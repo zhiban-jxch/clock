@@ -28,11 +28,11 @@ public interface CPunchCardNormalConvert {
     }
 
     default CPunchCardNormal User2ClockInCPunchCardNormal(User user) {
-        return User2CPunchCardNormal(user).setOnOffDuty(0);
+        return User2CPunchCardNormal(user).setOnOffDuty(0).setWorkTime("09:00");
     }
 
     default CPunchCardNormal User2ClockOutCPunchCardNormal(User user) {
-        return User2CPunchCardNormal(user).setOnOffDuty(1);
+        return User2CPunchCardNormal(user).setOnOffDuty(1).setWorkTime("18:00");
     }
 
 }
