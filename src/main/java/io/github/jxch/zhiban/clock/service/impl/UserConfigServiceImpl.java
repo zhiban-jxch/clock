@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -17,9 +18,30 @@ public class UserConfigServiceImpl implements UserConfigService {
     private final ClockConfig clockConfig;
 
     @Override
+    public UserConfig userConfig() {
+        return JSONUtil.readJSONObject(clockConfig.userConfigFile(), StandardCharsets.UTF_8).toBean(UserConfig.class);
+    }
+
+    @Override
     public List<User> allUsers() {
-        return JSONUtil.readJSONObject(clockConfig.userConfigFile(), StandardCharsets.UTF_8)
-                .toBean(UserConfig.class).getUsers();
+        return userConfig().getUsers();
+    }
+
+    @Override
+    public User getUserByName(String username) {
+        return allUsers().stream().filter(user -> Objects.equals(username, user.getUserName())).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("没有这个用户：" + username));
+    }
+
+    @Override
+    public void insertUser(User user) {
+        if (allUsers().stream().anyMatch(u -> Objects.equals(u.getUserName(), user.getUserName()))) {
+            throw new IllegalArgumentException("用户名已存在：" + user.getUserName());
+        }
+
+        UserConfig userConfig = userConfig();
+        userConfig.getUsers().add(user);
+        JSONUtil.readJSON(clockConfig.userConfigFile(), StandardCharsets.UTF_8);
     }
 
 }

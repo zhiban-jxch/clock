@@ -9,7 +9,8 @@
       "punchCardMethod": "考勤机",
       "remark": "https://staffcloud-1312610724.cos.ap-beijing.myqcloud.com/img/comp/944/908894/tmp_3497c6edcec66d6008a11e177f97e2e6.jpg",
       "remarks": [],
-      "createId": "90889421"
+      "createId": "90889421",
+      "ruleId": 67
     },
     {
       "userName": "李xx",
@@ -20,7 +21,8 @@
       "punchCardMethod": "考勤机",
       "remark": "https://staffcloud-1312610724.cos.ap-beijing.myqcloud.com/img/comp/944/565924/tmp_2984f1482e6387c33ee4ac803daa2149a0b0a202ca4b0477.jpg",
       "remarks": [],
-      "createId": "56592448"
+      "createId": "56592448",
+      "ruleId": 67
     }
   ]
 }

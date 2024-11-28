@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface CPunchCardNormalService {
 
-    boolean clockIn(String userName);
+    void clockIn(String userName);
 
-    boolean clockOut(String userName);
+    void clockOut(String userName);
 
     List<CPunchCardNormal> findClock(String userName);
 
-    boolean undoClock(String userName);
+    void undoClock(String userName);
 
 }
