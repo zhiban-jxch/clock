@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CPunchCardNormalRepository extends JpaRepository<CPunchCardNormal, Long> {
 
+    CPunchCardNormal findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(Long memberId, Long compId, String day, Integer onOffDuty);
+
 }

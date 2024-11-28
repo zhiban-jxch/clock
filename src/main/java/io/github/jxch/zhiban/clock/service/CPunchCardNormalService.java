@@ -14,4 +14,8 @@ public interface CPunchCardNormalService {
 
     void undoClock(String userName);
 
+    boolean isClockIn(String userName);
+
+    boolean isClockOut(String userName);
+
 }

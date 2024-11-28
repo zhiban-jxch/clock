@@ -12,11 +12,26 @@ public class ClockServiceImpl implements ClockService {
 
     @Override
     public void clockIn(String userName) {
-        cPunchCardNormalService.clockIn(userName);
+        if (!isClockIn(userName)) {
+            cPunchCardNormalService.clockIn(userName);
+        }
     }
 
     @Override
     public void clockOut(String userName) {
-        cPunchCardNormalService.clockOut(userName);
+        if (!isClockOut(userName)) {
+            cPunchCardNormalService.clockOut(userName);
+        }
     }
+
+    @Override
+    public boolean isClockIn(String userName) {
+        return cPunchCardNormalService.isClockIn(userName);
+    }
+
+    @Override
+    public boolean isClockOut(String userName) {
+        return cPunchCardNormalService.isClockOut(userName);
+    }
+
 }

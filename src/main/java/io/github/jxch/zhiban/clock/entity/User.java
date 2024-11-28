@@ -23,4 +23,5 @@ public class User {
     private String remark;
     private List<String> remarks;
     private Long createId;
+    private Long ruleId;
 }

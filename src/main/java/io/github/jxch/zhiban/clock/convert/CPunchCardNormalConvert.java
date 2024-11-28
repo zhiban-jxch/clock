@@ -22,7 +22,7 @@ public interface CPunchCardNormalConvert {
                 .setCreateTime(now)
                 .setUpdateTime(now)
                 .setPunchCardDay(DateUtil.format(now, "yyyy-MM-dd"))
-                .setDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
+                .setDayOfWeek((Calendar.getInstance().get(Calendar.DAY_OF_WEEK) + 5) % 7 + 1)
                 .setStatus(1)
                 .setMemberId(user.getUserId());
     }

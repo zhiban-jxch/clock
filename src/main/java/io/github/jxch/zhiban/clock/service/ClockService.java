@@ -6,4 +6,7 @@ public interface ClockService {
 
     void clockOut(String userName);
 
+    boolean isClockIn(String userName);
+
+    boolean isClockOut(String userName);
 }
