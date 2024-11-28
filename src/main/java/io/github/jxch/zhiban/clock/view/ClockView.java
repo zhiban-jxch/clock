@@ -59,7 +59,7 @@ public class ClockView extends VerticalLayout {
         });
 
         // todo 根据 textArea 更新 userConfig
-        add(comboBox, clockIn, clockOut, textArea);
+        add(comboBox, clockIn,  textArea);
     }
 
     private void showNotification(String message) {
