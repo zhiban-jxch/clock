@@ -5,6 +5,7 @@ import io.github.jxch.zhiban.clock.dao.CPunchCardNormalRepository;
 import io.github.jxch.zhiban.clock.entity.CPunchCardNormal;
 import io.github.jxch.zhiban.clock.entity.User;
 import io.github.jxch.zhiban.clock.service.CPunchCardNormalService;
+import io.github.jxch.zhiban.clock.service.CPunchCardStateService;
 import io.github.jxch.zhiban.clock.service.UndoLogService;
 import io.github.jxch.zhiban.clock.service.UserConfigService;
 import jakarta.transaction.Transactional;
@@ -21,6 +22,7 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
     private final CPunchCardNormalConvert cPunchCardNormalConvert;
     private final UserConfigService userConfigService;
     private final UndoLogService undoLogService;
+    private final CPunchCardStateService cPunchCardStateService;
 
     @Override
     public void clockIn(String userName) {
@@ -37,9 +39,9 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
         User user = userConfigService.getUserByName(userName);
         CPunchCardNormal cPunchCardNormal = cPunchCardNormalConvert.User2ClockOutCPunchCardNormal(user);
         CPunchCardNormal saved = cPunchCardNormalRepository.save(cPunchCardNormal);
-        // todo 改状态表
-        // todo 记录 undo log 日志
+        cPunchCardStateService.updateClockOutStatus(saved.getMemberId(), saved.getCompId(), saved.getPunchCardDay());
 
+        // todo 记录 undo log 日志
     }
 
     @Override
