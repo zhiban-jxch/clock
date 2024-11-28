@@ -1,9 +1,6 @@
 package io.github.jxch.zhiban.clock.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
+@Entity
 @Comment("上下班打卡表")
 @Table(name = "c_punch_card_normal")
 public class CPunchCardNormal {

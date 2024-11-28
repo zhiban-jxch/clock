@@ -1,3 +1,5 @@
+data-dir: /app/data
+
 server:
   port: 8088
 
@@ -5,9 +7,10 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://rm-0jlty78wspyjbg764co.rwlb.rds.aliyuncs.com:3306/user_info?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://rm-0jlty78wspyjbg764co.rwlb.rds.aliyuncs.com:3306/staffcloud_oa?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
     username: root_user
     password: Staffcloud&2024
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
 
-data-dir: /app/data

@@ -1,9 +1,6 @@
 package io.github.jxch.zhiban.clock.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,13 +9,13 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.Comment;
 
 import java.util.Date;
-import java.io.Serializable;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
+@Entity
 @Comment("打卡状态表")
 @Table(name = "c_punch_card_state")
 public class CPunchCardState  {
