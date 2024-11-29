@@ -1,6 +1,7 @@
 package io.github.jxch.zhiban.clock.view;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.json.JSONUtil;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -11,6 +12,7 @@ import com.vaadin.flow.router.Route;
 import io.github.jxch.zhiban.clock.entity.User;
 import io.github.jxch.zhiban.clock.service.ClockService;
 import io.github.jxch.zhiban.clock.service.UserConfigService;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
 
@@ -21,6 +23,8 @@ public class ClockView extends VerticalLayout {
 
     private final ComboBox<User> comboBox = new ComboBox<>("User");
     private final TextArea textArea = new TextArea("Detail");
+    private final Button clockIn = new Button("上班打卡");
+    private final Button clockOut = new Button("下班打卡");
 
     public ClockView(UserConfigService userConfigService, ClockService clockService) {
         this.userConfigService = userConfigService;
@@ -36,34 +40,44 @@ public class ClockView extends VerticalLayout {
         comboBox.addValueChangeListener(event -> textArea.setValue(JSONUtil.toJsonPrettyStr(comboBox.getValue())));
         comboBox.addAttachListener(event -> textArea.setValue(JSONUtil.toJsonPrettyStr(comboBox.getValue())));
 
-        Button clockIn = new Button("上班打卡");
-        clockIn.addClickListener(e -> {
-            String userName = comboBox.getValue().getUserName();
-            if (clockService.isClockIn(userName)) {
-                showNotification("已经打过卡了"); // todo 展示打卡记录
-            } else {
-                clockService.clockIn(userName);
-                showNotification("执行完毕");
-            }
-        });
+        clockIn.addClickListener(e -> clockIn());
+        clockOut.addClickListener(e -> clockOut());
+        clockOutVisible();
 
-        Button clockOut = new Button("下班打卡");
-        clockOut.addClickListener(e -> {
-            String userName = comboBox.getValue().getUserName();
+        add(comboBox, clockIn,  clockOut, textArea);
+    }
+
+    private void clockIn() {
+        String userName = comboBox.getValue().getUserName();
+        if (clockService.isClockIn(userName)) {
+            showNotification("已经打过卡了");
+        } else {
+            clockService.clockIn(userName);
+            showNotification("打卡成功");
+        }
+    }
+
+    private void clockOut() {
+        String userName = comboBox.getValue().getUserName();
+        if (clockService.isClockIn(userName)) {
             if (clockService.isClockOut(userName)) {
                 showNotification("已经打过卡了");
             } else {
                 clockService.clockOut(userName);
-                showNotification("执行完毕");
+                showNotification("打卡成功");
             }
-        });
-
-        // todo 根据 textArea 更新 userConfig
-        add(comboBox, clockIn,  textArea);
+        } else {
+            showNotification("还未执行上班打卡");
+        }
     }
 
     private void showNotification(String message) {
         Notification.show(message, 5000, Notification.Position.TOP_CENTER).open();
+    }
+
+    @Scheduled(cron = "0 0 * * * ?")
+    public void clockOutVisible() {
+        clockOut.setEnabled(DateUtil.date().isAfterOrEquals(DateUtil.parseTime(DateUtil.today() + " 18:00:00")));
     }
 
 }

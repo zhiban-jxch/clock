@@ -46,6 +46,15 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
     }
 
     @Override
+    public void clockOutOverride(String userName) {
+        User user = userConfigService.getUserByName(userName);
+        CPunchCardNormal tmp = cPunchCardNormalConvert.User2ClockOutCPunchCardNormal(user);
+        CPunchCardNormal record = cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(tmp.getMemberId(), tmp.getCompId(), tmp.getPunchCardDay(), tmp.getOnOffDuty());
+        record = cPunchCardNormalConvert.updateTime(record);
+        cPunchCardNormalRepository.save(record);
+    }
+
+    @Override
     public List<CPunchCardNormal> findClock(String userName) {
         return List.of();
     }

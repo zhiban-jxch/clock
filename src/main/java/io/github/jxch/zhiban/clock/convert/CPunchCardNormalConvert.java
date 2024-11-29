@@ -35,4 +35,9 @@ public interface CPunchCardNormalConvert {
         return User2CPunchCardNormal(user).setOnOffDuty(1).setWorkTime("18:00");
     }
 
+    default CPunchCardNormal updateTime(CPunchCardNormal po) {
+        Date now = new Date();
+        return po.setPunchCardTime(now).setCreateTime(now).setUpdateTime(now);
+    }
+
 }
