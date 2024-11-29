@@ -10,8 +10,6 @@ public interface CPunchCardNormalService {
 
     void clockOut(String userName);
 
-    void clockOutOverride(String userName);
-
     List<CPunchCardNormal> findClock(String userName);
 
     void undoClock(String userName);

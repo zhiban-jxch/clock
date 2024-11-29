@@ -14,6 +14,7 @@ import io.github.jxch.zhiban.clock.service.ClockService;
 import io.github.jxch.zhiban.clock.service.UserConfigService;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Route("clock")
@@ -25,6 +26,7 @@ public class ClockView extends VerticalLayout {
     private final TextArea textArea = new TextArea("Detail");
     private final Button clockIn = new Button("上班打卡");
     private final Button clockOut = new Button("下班打卡");
+    private final Button clockOutEnable = new Button("下班打卡开关");
 
     public ClockView(UserConfigService userConfigService, ClockService clockService) {
         this.userConfigService = userConfigService;
@@ -42,9 +44,10 @@ public class ClockView extends VerticalLayout {
 
         clockIn.addClickListener(e -> clockIn());
         clockOut.addClickListener(e -> clockOut());
-        clockOutVisible();
+        clockOutEnable.addClickListener(e -> clockOut.setEnabled(!clockOut.isEnabled()));
+        clockOutEnable();
 
-        add(comboBox, clockIn,  clockOut, textArea);
+        add(comboBox, clockIn, clockOut, textArea, clockOutEnable);
     }
 
     private void clockIn() {
@@ -61,10 +64,11 @@ public class ClockView extends VerticalLayout {
         String userName = comboBox.getValue().getUserName();
         if (clockService.isClockIn(userName)) {
             if (clockService.isClockOut(userName)) {
-                showNotification("已经打过卡了");
+                clockService.clockOut(userName);
+                showNotification("已经打过卡了, 再次执行打卡");
             } else {
                 clockService.clockOut(userName);
-                showNotification("打卡成功");
+                showNotification("初次打卡成功");
             }
         } else {
             showNotification("还未执行上班打卡");
@@ -76,8 +80,13 @@ public class ClockView extends VerticalLayout {
     }
 
     @Scheduled(cron = "0 0 * * * ?")
-    public void clockOutVisible() {
-        clockOut.setEnabled(DateUtil.date().isAfterOrEquals(DateUtil.parseTime(DateUtil.today() + " 18:00:00")));
+    public void clockOutEnable() {
+        int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if (dayOfWeek < Calendar.SATURDAY && dayOfWeek > Calendar.SUNDAY) {
+            clockOut.setEnabled(DateUtil.date().isAfterOrEquals(DateUtil.parse(DateUtil.today() + " 18:00:00")));
+        } else {
+            clockOut.setEnabled(true);
+        }
     }
 
 }

@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -46,15 +45,6 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
     }
 
     @Override
-    public void clockOutOverride(String userName) {
-        User user = userConfigService.getUserByName(userName);
-        CPunchCardNormal tmp = cPunchCardNormalConvert.User2ClockOutCPunchCardNormal(user);
-        CPunchCardNormal record = cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(tmp.getMemberId(), tmp.getCompId(), tmp.getPunchCardDay(), tmp.getOnOffDuty());
-        record = cPunchCardNormalConvert.updateTime(record);
-        cPunchCardNormalRepository.save(record);
-    }
-
-    @Override
     public List<CPunchCardNormal> findClock(String userName) {
         return List.of();
     }
@@ -67,18 +57,18 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
     public boolean isClockIn(String userName) {
         User user = userConfigService.getUserByName(userName);
         CPunchCardNormal cPunchCardNormal = cPunchCardNormalConvert.User2ClockInCPunchCardNormal(user);
-        CPunchCardNormal po = cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(
-                cPunchCardNormal.getMemberId(), cPunchCardNormal.getCompId(), cPunchCardNormal.getPunchCardDay(), cPunchCardNormal.getOnOffDuty());
-        return Objects.nonNull(po);
+        return !cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(
+                        cPunchCardNormal.getMemberId(), cPunchCardNormal.getCompId(), cPunchCardNormal.getPunchCardDay(), cPunchCardNormal.getOnOffDuty())
+                .isEmpty();
     }
 
     @Override
     public boolean isClockOut(String userName) {
         User user = userConfigService.getUserByName(userName);
         CPunchCardNormal cPunchCardNormal = cPunchCardNormalConvert.User2ClockOutCPunchCardNormal(user);
-        CPunchCardNormal po = cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(
-                cPunchCardNormal.getMemberId(), cPunchCardNormal.getCompId(), cPunchCardNormal.getPunchCardDay(), cPunchCardNormal.getOnOffDuty());
-        return Objects.nonNull(po);
+        return !cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(
+                        cPunchCardNormal.getMemberId(), cPunchCardNormal.getCompId(), cPunchCardNormal.getPunchCardDay(), cPunchCardNormal.getOnOffDuty())
+                .isEmpty();
     }
 
 }

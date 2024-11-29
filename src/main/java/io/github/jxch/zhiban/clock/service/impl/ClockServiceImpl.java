@@ -19,16 +19,7 @@ public class ClockServiceImpl implements ClockService {
 
     @Override
     public synchronized void clockOut(String userName) {
-        if (!isClockOut(userName)) {
-            cPunchCardNormalService.clockOut(userName);
-        }
-    }
-
-    @Override
-    public synchronized void clockOutOverride(String userName) {
-        if (isClockOut(userName)) {
-            cPunchCardNormalService.clockOutOverride(userName);
-        }
+        cPunchCardNormalService.clockOut(userName);
     }
 
     @Override
