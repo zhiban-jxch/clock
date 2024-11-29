@@ -11,14 +11,14 @@ public class ClockServiceImpl implements ClockService {
     private final CPunchCardNormalService cPunchCardNormalService;
 
     @Override
-    public void clockIn(String userName) {
+    public synchronized void clockIn(String userName) {
         if (!isClockIn(userName)) {
             cPunchCardNormalService.clockIn(userName);
         }
     }
 
     @Override
-    public void clockOut(String userName) {
+    public synchronized void clockOut(String userName) {
         if (!isClockOut(userName)) {
             cPunchCardNormalService.clockOut(userName);
         }
