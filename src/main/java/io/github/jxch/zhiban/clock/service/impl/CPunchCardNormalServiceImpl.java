@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -70,5 +72,26 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
                         cPunchCardNormal.getMemberId(), cPunchCardNormal.getCompId(), cPunchCardNormal.getPunchCardDay(), cPunchCardNormal.getOnOffDuty())
                 .isEmpty();
     }
+
+    @Override
+    public String remark(User user, Integer onOffDuty) {
+        switch (user.getRemarkStrategy()) {
+            case DB -> {
+                List<String> remarks = new ArrayList<>(cPunchCardNormalRepository.findByMemberIdAndCompIdAndOnOffDuty(user.getUserId(), user.getCompId(), onOffDuty).stream().map(CPunchCardNormal::getRemark).toList());
+                Collections.shuffle(remarks);
+                return remarks.stream().findAny().orElse(user.getRemark());
+            }
+            case JSON_ARR -> {
+                List<String> remarks = user.getRemarks();
+                Collections.shuffle(remarks);
+                return remarks.stream().findAny().orElse(user.getRemark());
+            }
+            default -> {
+                return user.getRemark();
+            }
+        }
+    }
+
+
 
 }

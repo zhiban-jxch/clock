@@ -24,4 +24,5 @@ public class User {
     private List<String> remarks;
     private Long createId;
     private Long ruleId;
+    private RemarkStrategy remarkStrategy;
 }

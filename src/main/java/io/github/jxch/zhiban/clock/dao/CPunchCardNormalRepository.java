@@ -9,4 +9,6 @@ public interface CPunchCardNormalRepository extends JpaRepository<CPunchCardNorm
 
     List<CPunchCardNormal> findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(Long memberId, Long compId, String day, Integer onOffDuty);
 
+    List<CPunchCardNormal> findByMemberIdAndCompIdAndOnOffDuty(Long memberId, Long compId, Integer onOffDuty);
+
 }
