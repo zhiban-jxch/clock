@@ -37,8 +37,4 @@ public class ClockServiceImpl implements ClockService {
         return cPunchCardNormalService.isClockOut(userName);
     }
 
-    private boolean needInsertCardState() {
-        return false;
-    }
-
 }
