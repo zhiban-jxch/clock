@@ -1,6 +1,7 @@
 package io.github.jxch.zhiban.clock.service.impl;
 
 import io.github.jxch.zhiban.clock.service.CPunchCardNormalService;
+import io.github.jxch.zhiban.clock.service.CPunchCardStateService;
 import io.github.jxch.zhiban.clock.service.ClockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,11 +10,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ClockServiceImpl implements ClockService {
     private final CPunchCardNormalService cPunchCardNormalService;
+    private final CPunchCardStateService cPunchCardStateService;
 
     @Override
     public synchronized void clockIn(String userName) {
         if (!isClockIn(userName)) {
             cPunchCardNormalService.clockIn(userName);
+            if (cPunchCardStateService.needInsert(userName)) {
+                cPunchCardStateService.insert(userName);
+            }
         }
     }
 
@@ -30,6 +35,10 @@ public class ClockServiceImpl implements ClockService {
     @Override
     public boolean isClockOut(String userName) {
         return cPunchCardNormalService.isClockOut(userName);
+    }
+
+    private boolean needInsertCardState() {
+        return false;
     }
 
 }
