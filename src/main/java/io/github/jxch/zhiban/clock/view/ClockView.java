@@ -57,6 +57,7 @@ public class ClockView extends VerticalLayout {
         } else {
             clockService.clockIn(userName);
             showNotification("打卡成功");
+            clockOut.setEnabled(false);
         }
     }
 
