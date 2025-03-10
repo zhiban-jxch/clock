@@ -1,0 +1,5 @@
+services:
+  clock:
+    image: jxch/zhiban-clock
+    ports:
+      - "8080:8080"
