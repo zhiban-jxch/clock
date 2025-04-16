@@ -1,11 +1,13 @@
 package io.github.jxch.zhiban.clock.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -25,4 +27,6 @@ public class User {
     private Long createId;
     private Long ruleId;
     private RemarkStrategy remarkStrategy;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date timeAfter;
 }

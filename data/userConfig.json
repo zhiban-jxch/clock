@@ -4,14 +4,15 @@
       "userName": "杨先生",
       "userId": "90889421",
       "compId": "9442641",
-      "equipment": "iPhone 13",
+      "equipment": "iPhone 16 Pro Max",
       "location": "Uface-BLT1",
       "punchCardMethod": "考勤机",
       "remark": "https://staffcloud-1312610724.cos.ap-beijing.myqcloud.com/img/comp/944/908894/tmp_ffa66fa2d4f220ab56e2e2dcd5e830be.jpg",
       "remarks": [],
       "createId": "90889421",
       "ruleId": "67",
-      "remarkStrategy": "DB"
+      "remarkStrategy": "DB",
+      "timeAfter": "2025-03-10"
     },
     {
       "userName": "李煜",
@@ -24,7 +25,8 @@
       "remarks": [],
       "createId": "56592448",
       "ruleId": "67",
-      "remarkStrategy": "DB"
+      "remarkStrategy": "DB",
+      "timeAfter": "2025-03-10"
     },
     {
       "userName": "欧豆豆",
@@ -37,7 +39,8 @@
       "remarks": [],
       "createId": "81576176",
       "ruleId": "67",
-      "remarkStrategy": "DB"
+      "remarkStrategy": "DB",
+      "timeAfter": "2025-03-10"
     }
   ]
 }

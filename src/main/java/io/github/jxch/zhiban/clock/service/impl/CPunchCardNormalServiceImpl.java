@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -77,7 +78,10 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
     public String remark(User user, Integer onOffDuty) {
         switch (user.getRemarkStrategy()) {
             case DB -> {
-                List<String> remarks = new ArrayList<>(cPunchCardNormalRepository.findByMemberIdAndCompIdAndOnOffDuty(user.getUserId(), user.getCompId(), onOffDuty).stream().map(CPunchCardNormal::getRemark).toList());
+                List<String> remarks = new ArrayList<>(Objects.isNull(user.getTimeAfter()) ?
+                        cPunchCardNormalRepository.findByMemberIdAndCompIdAndOnOffDuty(user.getUserId(), user.getCompId(), onOffDuty).stream().map(CPunchCardNormal::getRemark).toList() :
+                        cPunchCardNormalRepository.findByMemberIdAndCompIdAndOnOffDutyAndCreateTimeAfter(user.getUserId(), user.getCompId(), onOffDuty, user.getTimeAfter()).stream().map(CPunchCardNormal::getRemark).toList()
+                );
                 Collections.shuffle(remarks);
                 return remarks.stream().findAny().orElse(user.getRemark());
             }
@@ -91,7 +95,6 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
             }
         }
     }
-
 
 
 }

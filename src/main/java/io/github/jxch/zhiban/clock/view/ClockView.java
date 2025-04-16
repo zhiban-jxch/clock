@@ -2,6 +2,8 @@ package io.github.jxch.zhiban.clock.view;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.json.JSONConfig;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -28,6 +30,8 @@ public class ClockView extends VerticalLayout {
     private final Button clockOut = new Button("下班打卡");
     private final Button clockOutEnable = new Button("下班打卡开关");
 
+    private final JSONConfig jsonConfig = new JSONConfig().setDateFormat("yyyy-MM-dd");
+
     public ClockView(UserConfigService userConfigService, ClockService clockService) {
         this.userConfigService = userConfigService;
         this.clockService = clockService;
@@ -39,8 +43,8 @@ public class ClockView extends VerticalLayout {
         comboBox.setItems(users);
         comboBox.setValue(CollectionUtil.getFirst(users));
         comboBox.setItemLabelGenerator(User::getUserName);
-        comboBox.addValueChangeListener(event -> textArea.setValue(JSONUtil.toJsonPrettyStr(comboBox.getValue())));
-        comboBox.addAttachListener(event -> textArea.setValue(JSONUtil.toJsonPrettyStr(comboBox.getValue())));
+        comboBox.addValueChangeListener(event -> textArea.setValue(JSONUtil.toJsonPrettyStr(new JSONObject(comboBox.getValue(), jsonConfig))));
+        comboBox.addAttachListener(event -> textArea.setValue(JSONUtil.toJsonPrettyStr(new JSONObject(comboBox.getValue(), jsonConfig))));
 
         clockIn.addClickListener(e -> clockIn());
         clockOut.addClickListener(e -> clockOut());
