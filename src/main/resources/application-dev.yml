@@ -1,4 +1,5 @@
-data-dir: D:\zhiban-jxch\clock\data
+server:
+  port: 8080
 
 spring:
   datasource:

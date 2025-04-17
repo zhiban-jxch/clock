@@ -1,25 +1,23 @@
 package io.github.jxch.zhiban.clock.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.jxch.zhiban.clock.entity.UserConfig;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.SneakyThrows;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import java.io.File;
 
 @Data
 @Configuration
 @EnableScheduling
 public class ClockConfig {
-    @Value("${data-dir}")
-    private String dataDir;
 
-    public File userConfigFile() {
-        return new File(dataDir, "userConfig.json");
-    }
-
-    public File undoLogFile() {
-        return new File(dataDir, "undoLog.json");
+    @Bean
+    @SneakyThrows
+    public UserConfig userConfig() {
+        return new ObjectMapper().readValue(new ClassPathResource("userConfig.json").getInputStream(), UserConfig.class);
     }
 
 }

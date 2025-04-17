@@ -13,6 +13,4 @@ public interface UserConfigService {
 
     User getUserByName(String username);
 
-    void insertUser(User user);
-
 }

@@ -1,11 +1,9 @@
-data-dir: /app/data
-
 server:
   port: 8088
 
 spring:
   profiles:
-    active: dev
+    active: prod
   datasource:
     url: jdbc:mysql://rm-0jlty78wspyjbg764co.rwlb.rds.aliyuncs.com:3306/staffcloud_oa?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
     username: root_user

@@ -1,0 +1,1 @@
+mvn clean -Pnative -Prelease spring-boot:build-image -f pom.xml
