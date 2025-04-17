@@ -2,7 +2,7 @@ FROM openjdk:21-slim
 
 WORKDIR /app
 
-COPY ../target/zhiban-clock.jar ./app.jar
+COPY zhiban-clock.jar ./app.jar
 
 ENV ACTIVE=prod
 
