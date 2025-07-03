@@ -11,7 +11,9 @@ public interface CPunchCardNormalService {
 
     void clockOut(String userName);
 
-    List<CPunchCardNormal> findClock(String userName);
+    List<CPunchCardNormal> findClockInList(String userName);
+
+    List<CPunchCardNormal> findClockOutList(String userName);
 
     void undoClock(String userName);
 

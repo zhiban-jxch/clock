@@ -41,8 +41,21 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
     }
 
     @Override
-    public List<CPunchCardNormal> findClock(String userName) {
-        return List.of();
+    public List<CPunchCardNormal> findClockInList(String userName) {
+        User user = userConfigService.getUserByName(userName);
+        CPunchCardNormal cPunchCardNormal = cPunchCardNormalConvert.User2ClockInCPunchCardNormal(user);
+        return cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(
+                        cPunchCardNormal.getMemberId(), cPunchCardNormal.getCompId(), cPunchCardNormal.getPunchCardDay(), cPunchCardNormal.getOnOffDuty())
+                .stream().toList();
+    }
+
+    @Override
+    public List<CPunchCardNormal> findClockOutList(String userName) {
+        User user = userConfigService.getUserByName(userName);
+        CPunchCardNormal cPunchCardNormal = cPunchCardNormalConvert.User2ClockOutCPunchCardNormal(user);
+        return cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(
+                        cPunchCardNormal.getMemberId(), cPunchCardNormal.getCompId(), cPunchCardNormal.getPunchCardDay(), cPunchCardNormal.getOnOffDuty())
+                .stream().toList();
     }
 
     @Override
@@ -51,20 +64,12 @@ public class CPunchCardNormalServiceImpl implements CPunchCardNormalService {
 
     @Override
     public boolean isClockIn(String userName) {
-        User user = userConfigService.getUserByName(userName);
-        CPunchCardNormal cPunchCardNormal = cPunchCardNormalConvert.User2ClockInCPunchCardNormal(user);
-        return !cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(
-                        cPunchCardNormal.getMemberId(), cPunchCardNormal.getCompId(), cPunchCardNormal.getPunchCardDay(), cPunchCardNormal.getOnOffDuty())
-                .isEmpty();
+        return !findClockInList(userName).isEmpty();
     }
 
     @Override
     public boolean isClockOut(String userName) {
-        User user = userConfigService.getUserByName(userName);
-        CPunchCardNormal cPunchCardNormal = cPunchCardNormalConvert.User2ClockOutCPunchCardNormal(user);
-        return !cPunchCardNormalRepository.findByMemberIdAndCompIdAndPunchCardDayAndOnOffDuty(
-                        cPunchCardNormal.getMemberId(), cPunchCardNormal.getCompId(), cPunchCardNormal.getPunchCardDay(), cPunchCardNormal.getOnOffDuty())
-                .isEmpty();
+        return !findClockOutList(userName).isEmpty();
     }
 
     @Override

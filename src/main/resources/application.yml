@@ -9,6 +9,5 @@ spring:
     username: root_user
     password: Staffcloud&2024
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    show-sql: true
+
 

@@ -7,3 +7,5 @@ spring:
     username: root
     password: ZBWQAZ#@!WSX!^)z
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true

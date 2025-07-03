@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.extra.spring.SpringUtil;
+import io.github.jxch.zhiban.clock.context.ClockContext;
 import io.github.jxch.zhiban.clock.entity.CPunchCardNormal;
 import io.github.jxch.zhiban.clock.entity.CPunchCardState;
 import io.github.jxch.zhiban.clock.entity.User;
@@ -21,7 +22,7 @@ public interface CPunchCardNormalConvert {
     }
 
     default CPunchCardNormal User2CPunchCardNormal(User user) {
-        Date now = new Date();
+        Date now = ClockContext.getClockDate();
         CPunchCardNormal cpn = new CPunchCardNormal();
         BeanUtil.copyProperties(user, cpn, CopyOptions.create().setIgnoreNullValue(true));
 
@@ -45,7 +46,7 @@ public interface CPunchCardNormalConvert {
     }
 
     default CPunchCardState cPunchCardNormal2CPunchCardState(CPunchCardNormal cPunchCardNormal) {
-        Date now = new Date();
+        Date now = ClockContext.getClockDate();
         CPunchCardState cPunchCardState = new CPunchCardState();
         BeanUtil.copyProperties(cPunchCardNormal, cPunchCardState);
         return cPunchCardState

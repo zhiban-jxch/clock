@@ -30,9 +30,7 @@ public class CPunchCardStateServiceImpl implements CPunchCardStateService {
     public boolean needInsert(String username) {
         User user = userConfigService.getUserByName(username);
         CPunchCardNormal dto = cPunchCardNormalConvert.User2ClockOutCPunchCardNormal(user);
-        return cPunchCardNormalConvert.dayOfWeek() > 5 &&
-                cPunchCardStateRepository.findByMemberIdAndCompIdAndPunchCardDay(dto.getMemberId(), dto.getCompId(), dto.getPunchCardDay())
-                        .isEmpty();
+        return cPunchCardStateRepository.findByMemberIdAndCompIdAndPunchCardDay(dto.getMemberId(), dto.getCompId(), dto.getPunchCardDay()).isEmpty();
     }
 
     @Override

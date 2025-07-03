@@ -27,7 +27,7 @@
         <profile>
             <id>release</id>
             <properties>
-                <app.version>1.0.0</app.version>
+                <app.version>1.1.0</app.version>
             </properties>
         </profile>
     </profiles>
