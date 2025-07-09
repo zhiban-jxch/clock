@@ -24,10 +24,7 @@ import io.github.jxch.zhiban.clock.service.UserConfigService;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Route("clock")
@@ -54,6 +51,7 @@ public class ClockView extends VerticalLayout {
     private final Checkbox timeCheckbox = new Checkbox("修改打卡时间");
     private final DatePicker datePicker = new DatePicker("打卡日期");
     private final Checkbox dateCheckbox = new Checkbox("修改打卡日期");
+    private final Checkbox secondRandom = new Checkbox("随机秒钟");
 
     private final JSONConfig jsonConfig = new JSONConfig().setDateFormat("yyyy-MM-dd");
 
@@ -99,7 +97,7 @@ public class ClockView extends VerticalLayout {
         init();
 
         HorizontalLayout dateTimeCheckboxLayout = new HorizontalLayout();
-        dateTimeCheckboxLayout.add(dateCheckbox, timeCheckbox);
+        dateTimeCheckboxLayout.add(dateCheckbox, timeCheckbox, secondRandom);
         HorizontalLayout dateTimePickerLayout = new HorizontalLayout();
         dateTimePickerLayout.add(datePicker, timePicker);
 
@@ -167,6 +165,9 @@ public class ClockView extends VerticalLayout {
         }
         if (timeCheckbox.getValue()) {
             time = timePicker.getValue();
+            if (secondRandom.getValue()) {
+                time = time.withSecond(new Random().nextInt(60));
+            }
         }
 
         ZonedDateTime zonedDateTime = date.atTime(time).atZone(now.getZone());

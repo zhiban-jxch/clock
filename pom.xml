@@ -22,12 +22,14 @@
             </activation>
             <properties>
                 <app.version>1.0.0-SNAPSHOT</app.version>
+                <app.latest.version>latest-SNAPSHOT</app.latest.version>
             </properties>
         </profile>
         <profile>
             <id>release</id>
             <properties>
-                <app.version>1.1.0</app.version>
+                <app.version>1.1.2</app.version>
+                <app.latest.version>latest</app.latest.version>
             </properties>
         </profile>
     </profiles>
@@ -110,6 +112,16 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
+                <configuration>
+                    <image>
+                        <name>jxch/zhiban-clock</name>
+                        <tags>
+                            <tag>${app.latest.version}</tag>
+                            <tag>${app.version}</tag>
+                        </tags>
+                        <publish>true</publish>
+                    </image>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.vaadin</groupId>
