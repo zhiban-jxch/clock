@@ -114,12 +114,12 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <image>
-                        <name>jxch/zhiban-clock</name>
+                        <name>jxch/zhiban-clock:${app.version}</name>
                         <tags>
-                            <tag>${app.latest.version}</tag>
-                            <tag>${app.version}</tag>
+                            <tag>jxch/zhiban-clock:${app.latest.version}</tag>
+                            <tag>jxch/zhiban-clock:${app.version}</tag>
                         </tags>
-                        <publish>true</publish>
+<!--                        <publish>true</publish>-->
                     </image>
                 </configuration>
             </plugin>
